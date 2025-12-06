@@ -4,12 +4,18 @@ import { Feather } from "@expo/vector-icons";
 import { BlurView } from "expo-blur";
 import { Platform, StyleSheet } from "react-native";
 import HomeStackNavigator from "@/navigation/HomeStackNavigator";
-import ProfileStackNavigator from "@/navigation/ProfileStackNavigator";
+import ServicesStackNavigator from "@/navigation/ServicesStackNavigator";
+import PortfolioStackNavigator from "@/navigation/PortfolioStackNavigator";
+import AboutStackNavigator from "@/navigation/AboutStackNavigator";
+import ContactStackNavigator from "@/navigation/ContactStackNavigator";
 import { useTheme } from "@/hooks/useTheme";
 
 export type MainTabParamList = {
   HomeTab: undefined;
-  ProfileTab: undefined;
+  ServicesTab: undefined;
+  PortfolioTab: undefined;
+  AboutTab: undefined;
+  ContactTab: undefined;
 };
 
 const Tab = createBottomTabNavigator<MainTabParamList>();
@@ -21,7 +27,7 @@ export default function MainTabNavigator() {
     <Tab.Navigator
       initialRouteName="HomeTab"
       screenOptions={{
-        tabBarActiveTintColor: theme.tabIconSelected,
+        tabBarActiveTintColor: theme.primary,
         tabBarInactiveTintColor: theme.tabIconDefault,
         tabBarStyle: {
           position: "absolute",
@@ -54,12 +60,42 @@ export default function MainTabNavigator() {
         }}
       />
       <Tab.Screen
-        name="ProfileTab"
-        component={ProfileStackNavigator}
+        name="ServicesTab"
+        component={ServicesStackNavigator}
         options={{
-          title: "Profile",
+          title: "Services",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="briefcase" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="PortfolioTab"
+        component={PortfolioStackNavigator}
+        options={{
+          title: "Portfolio",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="grid" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="AboutTab"
+        component={AboutStackNavigator}
+        options={{
+          title: "About",
           tabBarIcon: ({ color, size }) => (
             <Feather name="user" size={size} color={color} />
+          ),
+        }}
+      />
+      <Tab.Screen
+        name="ContactTab"
+        component={ContactStackNavigator}
+        options={{
+          title: "Contact",
+          tabBarIcon: ({ color, size }) => (
+            <Feather name="message-circle" size={size} color={color} />
           ),
         }}
       />
