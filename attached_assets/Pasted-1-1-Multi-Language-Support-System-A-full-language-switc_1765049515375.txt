@@ -1,0 +1,322 @@
+1.1 Multi-Language Support System
+
+A full language switcher inside the app.
+
+Supported Languages:
+
+English
+
+Urdu
+
+Roman Urdu
+
+Features:
+
+Dynamic translation without restarting app
+
+Language saved in user preferences
+
+All screens support multilingual text
+
+Admin panel can upload language files
+
+1.2 Downloadable Resources Center
+
+A section where users can download helpful files related to digital marketing.
+
+Resource Types:
+
+Branding guides
+
+Marketing checklists
+
+Social media post templates
+
+Web development requirements sheet
+
+Project questionnaire forms
+
+Features:
+
+PDF preview
+
+Direct download
+
+Resource categorization
+
+1.3 Appointment Booking System (Without Payments)
+
+Users can book consultation time slots.
+
+Features:
+
+View available time slots
+
+Select date & time
+
+Submit booking form
+
+Admin receives booking inside admin panel
+
+Automatic email confirmation (template-based)
+
+1.4 Testimonials Page With Video Support
+
+A testimonials page with advanced features.
+
+New Additions:
+
+Video testimonials upload
+
+Category-based testimonials (SEO, SMM, Web Dev, etc.)
+
+Sort by latest, oldest, or top-rated
+
+Star-rating system
+
+1.5 Saved Services (Wishlist System)
+
+Users can save services for future use.
+
+Features:
+
+Add to favorites
+
+Remove anytime
+
+Wishlist screen showing saved services
+
+Sync favorites with logged-in account
+
+1.6 Resource-Based Portfolio Filters
+
+Portfolio now allows advanced filters such as:
+
+Industry (Real Estate, E-commerce, Professional Services, etc.)
+
+Technology (WordPress, Flutter, Shopify, etc.)
+
+Project Complexity (Basic, Standard, Advanced)
+
+Duration
+
+1.7 In-App Screenshots & Media Viewer
+
+Users can zoom, swipe gallery images, and open fullscreen mode.
+
+Features:
+
+Fullscreen image gallery
+
+Video playback
+
+Pinch-to-zoom
+
+Download gallery option
+
+1.8 Push Notification Categories
+
+Users can select what type of notifications they want.
+
+Categories:
+
+New portfolio updates
+
+New services
+
+Discount offers
+
+Blog updates
+
+Project updates (for clients)
+
+2. NEW ADMIN PANEL FEATURES (NOT INCLUDED BEFORE)
+2.1 Booking Management Module
+
+Admin panel now includes:
+
+List of all bookings
+
+Calendar view (weekly/monthly)
+
+Accept/reject booking
+
+Add internal notes (e.g., client preferences)
+
+Reschedule booking and inform user
+
+2.2 Multi-Language Content Manager
+
+Admin can:
+
+Add or edit translated text
+
+Manage language JSON files
+
+Preview translated screens
+
+Publish updated language pack instantly
+
+2.3 Resource Center Manager
+
+Admin can:
+
+Upload PDFs, ZIP files, PPTs
+
+Add category tags
+
+Replace old resources
+
+Track download count
+
+Disable resource temporarily
+
+2.4 Portfolio Insights (Manual Data)
+
+New analytics for portfolio engagement.
+
+Insights include:
+
+Most viewed portfolio project
+
+Download count of attached files
+
+Industry-wise performance
+
+Engagement time per project
+
+2.5 Custom Notification Sender
+
+Admin can compose and send categorized notifications:
+
+Marketing notifications
+
+New portfolio alert
+
+Important updates
+
+Booking related alerts
+
+Includes:
+
+Notification title
+
+Message
+
+Image (optional)
+
+Targeted user groups
+
+2.6 Advanced Testimonial Manager
+
+Admin can:
+
+Upload video testimonials
+
+Add ratings
+
+Tag services
+
+Sort testimonials
+
+Feature/unfeature testimonials on home page
+
+2.7 User Activity Tracker
+
+Tracks user actions (non-sensitive).
+
+Tracks:
+
+Screens visited
+
+Time spent in each section
+
+Buttons clicked
+
+Portfolio engagement patterns
+
+This helps improve user experience.
+
+2.8 Custom Form Builder
+
+Admin can create extra forms for services without coding.
+
+Features:
+
+Add/remove fields
+
+Field types: text, number, dropdown, date, file upload
+
+Make fields mandatory or optional
+
+Publish form to specific service pages
+
+3. BACKEND & SYSTEM FEATURES (NEW ITEMS ONLY)
+3.1 Event Logging System
+
+Tracks app events for debugging.
+
+Logs track:
+
+Errors
+
+Crashes
+
+Failed network requests
+
+Screen load failures
+
+3.2 Scheduled Notifications (Time-Based)
+
+Admin can set notifications to send automatically at a date/time.
+
+Example:
+
+“New Year Discount – Send on January 1 at 12:00 PM”
+
+3.3 Auto-Cleanup System
+
+Automatically deletes old logs, old backups, or expired resources after a set time.
+
+3.4 In-App Rate & Feedback System
+
+Users can:
+
+Rate the app
+
+Share suggestions
+
+Report issues
+
+Feedback goes to admin panel.
+
+4. NEW NON-FUNCTIONAL REQUIREMENTS
+4.1 High Compression for Media
+
+All images & videos optimized for:
+
+Fast loading
+
+Low data usage
+
+Offline caching
+
+4.2 Improved Data Privacy Controls
+
+Users can:
+
+Delete their account
+
+Clear cached data
+
+Control which notifications they receive
+
+4.3 SEO Optimization for App Web Content
+
+If app includes web views or blogs:
+
+Metadata
+
+Canonical tags
+
+Sitemap generation
