@@ -1,0 +1,327 @@
+📄 PRODUCT REQUIREMENTS DOCUMENT (PRD)
+Project Name: Sammer Digital Marketing Portfolio App
+Prepared For: Muhammad Sammer
+Services Included: SEO, Web Development, App Development, Graphic Design, Social Media Marketing, AI Automation, AI Agents, and more.
+1. PRODUCT OVERVIEW
+1.1 Purpose
+
+The purpose of this Android application is to showcase Muhammad Sammer’s complete digital-marketing service portfolio in a highly professional, modern, and visually impressive way.
+The app will allow users (clients) to explore your services, view past work, submit inquiries, and contact you directly.
+An Admin Panel will allow you to manage service inquiries, content, and track user submissions.
+
+2. TARGET USERS
+Primary Users (Clients):
+
+Businesses seeking digital marketing services
+
+Startups looking for SEO, branding, websites, or automation
+
+Individuals needing app development or graphic design
+
+Social media brands seeking marketing
+
+Companies wanting AI automations or AI agents
+
+Admin User:
+
+Email: sameerliaqat81@gmail.com
+
+Password: Q4WVicB636c]
+
+Full control panel for managing inquiries & content
+
+3. CORE FEATURES (APP SIDE)
+3.1 Home Screen
+
+Beautiful modern UI (glassmorphism / neon gradient / or minimal white theme)
+
+Hero banner introducing “Muhammad Sammer — Digital Marketing Specialist”
+
+Quick-access icons for all service categories
+
+CTA Buttons:
+
+Request a Quote
+
+Chat / Contact Me
+
+View Portfolio
+
+3.2 Service Categories (Sub-Niches)
+
+Each category opens a dedicated page with:
+
+Attractive header banner
+
+Description of service
+
+List of offerings
+
+Expected deliverables
+
+Estimated timeline
+
+Starting price
+
+CTA: "Fill Inquiry Form"
+
+Included Sub-Niches:
+
+SEO Services
+
+Web Development
+
+Android App Development
+
+Graphic Design
+
+Social Media Marketing
+
+Branding & UI/UX Design
+
+AI Automation Workflows
+
+AI Chatbots & AI Agents Development
+
+E-commerce Digital Services (optional extra)
+
+3.3 Portfolio Section
+
+Showcase completed projects
+
+Images, videos, links, case studies
+
+Category filters
+
+“Request similar project” button
+
+3.4 Inquiry Form
+
+Users can submit inquiries for any service.
+
+Fields:
+
+Full Name
+
+Email
+
+Phone
+
+Select Service Category
+
+Budget Range
+
+Message / Project Requirements
+
+Attachment option (images, documents)
+
+Functionality:
+
+Data sent to Firebase backend
+
+Automatically visible in admin panel
+
+Automatic reply email (optional feature)
+
+3.5 Contact Section
+
+WhatsApp Chat (Deep link)
+
+Email (mailto link)
+
+Call button
+
+Social links (Facebook, Instagram, LinkedIn, GitHub, Portfolio)
+
+3.6 About Section
+
+Professional biography
+
+Skills breakdown
+
+Certifications
+
+Experience timeline
+
+Achievements
+
+Client testimonials carousel
+
+3.7 Settings Section
+
+Dark/Light Mode
+
+Change language (English / Urdu / Roman Urdu – optional)
+
+Version info
+
+4. ADMIN PANEL REQUIREMENTS
+Admin Login Credentials
+
+Email: sameerliaqat81@gmail.com
+
+Password: Q4WVicB636c]
+
+4.1 Admin Dashboard
+
+Total inquiries
+
+New inquiries count
+
+Pending inquiries
+
+Replied inquiries
+
+Graph of weekly user activity
+
+Most requested service category
+
+4.2 Inquiry Management
+
+Each inquiry should include:
+
+Name
+
+Email
+
+Phone
+
+Service selected
+
+Budget
+
+Message
+
+Date/time submitted
+
+Attachment preview (if uploaded)
+
+Admin Actions:
+
+Mark as Pending / In Progress / Completed
+
+Add notes
+
+Reply directly via email (optional SMTP integration)
+
+Export inquiries to CSV
+
+4.3 Manage Services
+
+Admin can:
+
+Add new service categories
+
+Edit service descriptions
+
+Update price ranges
+
+Upload header banners
+
+Toggle services ON/OFF
+
+4.4 Portfolio CMS
+
+Admin can:
+
+Upload images, videos, or project thumbnails
+
+Add project description
+
+Add project links
+
+Remove outdated projects
+
+4.5 Notification System
+
+Admin receives notification when new inquiry arrives
+
+Optional: Push notifications to user for new updates
+
+4.6 Additional Recommended Features (added by ChatGPT for completeness)
+User Analytics Module
+
+Track which services users view most
+
+Track how many users open portfolio
+
+Track inquiry conversion rate
+
+Testimonial Manager
+
+Add/edit/delete testimonials shown in app
+
+Blog / Articles (Optional Future Upgrade)
+
+SEO tips
+
+Digital marketing case studies
+
+Industry insights
+
+5. TECHNICAL REQUIREMENTS
+5.1 Android App
+
+Built with Kotlin or Flutter
+
+Backend: Firebase/Node.js
+
+UI/UX: Material 3 + custom animations
+
+High-performance image loading (Glide / Coil / Cached)
+
+5.2 Admin Panel
+
+Web-based panel
+
+Technology: React.js / Next.js / Vue.js
+
+Authentication: Firebase Auth
+
+Database: Firebase Firestore
+
+Hosting: Firebase Hosting or Vercel
+
+6. NON-FUNCTIONAL REQUIREMENTS
+Performance
+
+App load time < 2 seconds
+
+Smooth transitions & animations
+
+Security
+
+Encrypted database storage
+
+Secure admin login
+
+No plain-text password storage
+
+Scalability
+
+Ability to add more services later
+
+Ability to handle 10,000+ inquiries
+
+Usability
+
+Clean, modern UI
+
+Easy navigation
+
+ADA accessibility friendly
+
+7. DELIVERY OUTPUTS
+Developer must deliver:
+
+Full Android APK + Source Code
+
+Admin Panel web app
+
+Complete database structure
+
+Documentation for backend
+
+UI/UX screens (Figma)
+
+API documentation (if custom backend)
