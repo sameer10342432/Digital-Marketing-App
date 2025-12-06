@@ -17,6 +17,7 @@ import Animated, {
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { useTheme } from "@/hooks/useTheme";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Spacing, BorderRadius, Colors } from "@/constants/theme";
 import type { HomeStackParamList } from "@/navigation/HomeStackNavigator";
 import type { RootStackParamList } from "@/navigation/RootStackNavigator";
@@ -119,6 +120,7 @@ export default function HomeScreen() {
   const headerHeight = useHeaderHeight();
   const tabBarHeight = useBottomTabBarHeight();
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const navigation = useNavigation<NavigationProp>();
 
   const { data: services = [] } = useQuery<Service[]>({
@@ -181,20 +183,20 @@ export default function HomeScreen() {
             resizeMode="contain"
           />
           <ThemedText type="heroTitle" style={styles.heroTitle}>
-            Muhammad Sammer
+            {t("home.welcome")}
           </ThemedText>
           <ThemedText type="body" style={styles.heroSubtitle}>
-            Digital Marketing Specialist
+            {t("home.tagline")}
           </ThemedText>
           <ThemedText type="small" style={styles.heroDescription}>
-            Transform your digital presence with expert SEO, web development, app development, and AI automation solutions.
+            {t("home.subtitle")}
           </ThemedText>
         </View>
       </LinearGradient>
 
       <View style={styles.section}>
         <ThemedText type="h3" style={styles.sectionTitle}>
-          Services
+          {t("home.ourServices")}
         </ThemedText>
         <View style={styles.servicesGrid}>
           {services.slice(0, 8).map((service) => (
@@ -210,19 +212,19 @@ export default function HomeScreen() {
 
       <View style={styles.ctaSection}>
         <CTAButton
-          title="Request a Quote"
+          title={t("services.getQuote")}
           icon="file-text"
           variant="primary"
           onPress={navigateToQuote}
         />
         <CTAButton
-          title="Contact Me"
+          title={t("home.getInTouch")}
           icon="message-circle"
           variant="secondary"
           onPress={navigateToContact}
         />
         <CTAButton
-          title="View Portfolio"
+          title={t("portfolio.viewProject")}
           icon="grid"
           variant="outline"
           onPress={navigateToPortfolio}

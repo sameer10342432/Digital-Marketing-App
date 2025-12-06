@@ -1,5 +1,5 @@
 import React from "react";
-import { View, ScrollView, StyleSheet, Pressable, Switch, Alert } from "react-native";
+import { View, ScrollView, StyleSheet, Pressable, Alert } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useHeaderHeight } from "@react-navigation/elements";
 import { useNavigation } from "@react-navigation/native";
@@ -13,7 +13,9 @@ import Animated, {
 } from "react-native-reanimated";
 
 import { ThemedText } from "@/components/ThemedText";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useTheme } from "@/hooks/useTheme";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Spacing, BorderRadius, Colors } from "@/constants/theme";
 import type { HomeStackParamList } from "@/navigation/HomeStackNavigator";
 
@@ -94,6 +96,7 @@ export default function SettingsScreen() {
   const insets = useSafeAreaInsets();
   const headerHeight = useHeaderHeight();
   const { theme, isDark } = useTheme();
+  const { t } = useLanguage();
   const navigation = useNavigation<NavigationProp>();
 
   const [isAdmin, setIsAdmin] = React.useState(false);
@@ -121,20 +124,20 @@ export default function SettingsScreen() {
 
   const handleLogout = () => {
     Alert.alert(
-      "Logout",
-      "Are you sure you want to logout from admin panel?",
+      t("admin.logout"),
+      t("admin.logoutConfirm", "Are you sure you want to logout from admin panel?"),
       [
-        { text: "Cancel", style: "cancel" },
+        { text: t("common.cancel"), style: "cancel" },
         {
-          text: "Logout",
+          text: t("admin.logout"),
           style: "destructive",
           onPress: async () => {
             try {
               await AsyncStorage.removeItem("admin");
               setIsAdmin(false);
-              Alert.alert("Success", "Logged out successfully");
+              Alert.alert(t("common.success"), t("admin.loggedOut", "Logged out successfully"));
             } catch (error) {
-              Alert.alert("Error", "Failed to logout");
+              Alert.alert(t("common.error"), t("admin.logoutError", "Failed to logout"));
             }
           },
         },
@@ -155,12 +158,19 @@ export default function SettingsScreen() {
     >
       <View style={styles.section}>
         <ThemedText type="h4" style={styles.sectionTitle}>
-          Appearance
+          {t("settings.language")}
+        </ThemedText>
+        <LanguageSwitcher />
+      </View>
+
+      <View style={styles.section}>
+        <ThemedText type="h4" style={styles.sectionTitle}>
+          {t("settings.appearance", "Appearance")}
         </ThemedText>
         <SettingItem
           icon="moon"
-          title="Dark Mode"
-          subtitle={isDark ? "Currently using dark theme" : "Currently using light theme"}
+          title={t("settings.darkMode", "Dark Mode")}
+          subtitle={isDark ? t("settings.darkTheme", "Currently using dark theme") : t("settings.lightTheme", "Currently using light theme")}
           rightElement={
             <View style={styles.themeIndicator}>
               <Feather
@@ -169,31 +179,31 @@ export default function SettingsScreen() {
                 color={isDark ? Colors.secondary : Colors.warning}
               />
               <ThemedText type="small" secondary>
-                {isDark ? "Dark" : "Light"}
+                {isDark ? t("settings.dark", "Dark") : t("settings.light", "Light")}
               </ThemedText>
             </View>
           }
         />
         <ThemedText type="caption" secondary style={styles.hint}>
-          Theme follows your device settings
+          {t("settings.themeHint", "Theme follows your device settings")}
         </ThemedText>
       </View>
 
       <View style={styles.section}>
         <ThemedText type="h4" style={styles.sectionTitle}>
-          Admin Access
+          {t("admin.access", "Admin Access")}
         </ThemedText>
         <SettingItem
           icon="shield"
-          title={isAdmin ? "Admin Dashboard" : "Admin Login"}
-          subtitle={isAdmin ? "Manage inquiries, portfolio & services" : "Access admin panel"}
+          title={isAdmin ? t("admin.dashboard") : t("admin.login", "Admin Login")}
+          subtitle={isAdmin ? t("admin.manageContent", "Manage inquiries, portfolio & services") : t("admin.accessPanel", "Access admin panel")}
           onPress={handleAdminAccess}
         />
         {isAdmin ? (
           <SettingItem
             icon="log-out"
-            title="Logout"
-            subtitle="Sign out from admin panel"
+            title={t("admin.logout")}
+            subtitle={t("admin.signOut", "Sign out from admin panel")}
             onPress={handleLogout}
           />
         ) : null}
@@ -201,16 +211,16 @@ export default function SettingsScreen() {
 
       <View style={styles.section}>
         <ThemedText type="h4" style={styles.sectionTitle}>
-          About
+          {t("settings.about")}
         </ThemedText>
         <SettingItem
           icon="info"
-          title="Version"
+          title={t("settings.version")}
           subtitle={APP_VERSION}
         />
         <SettingItem
           icon="code"
-          title="Built with"
+          title={t("settings.builtWith", "Built with")}
           subtitle="React Native & Expo"
         />
       </View>

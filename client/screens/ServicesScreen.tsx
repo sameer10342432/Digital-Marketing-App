@@ -15,6 +15,7 @@ import Animated, {
 
 import { ThemedText } from "@/components/ThemedText";
 import { useTheme } from "@/hooks/useTheme";
+import { useLanguage } from "@/contexts/LanguageContext";
 import { Spacing, BorderRadius, Colors } from "@/constants/theme";
 import type { ServicesStackParamList } from "@/navigation/ServicesStackNavigator";
 import type { Service } from "@shared/schema";
@@ -30,6 +31,7 @@ interface ServiceListItemProps {
 
 function ServiceListItem({ service, onPress }: ServiceListItemProps) {
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const scale = useSharedValue(1);
 
   const animatedStyle = useAnimatedStyle(() => ({
@@ -60,7 +62,7 @@ function ServiceListItem({ service, onPress }: ServiceListItemProps) {
           {service.description}
         </ThemedText>
         <ThemedText type="caption" style={{ color: Colors.primary, marginTop: Spacing.xs }}>
-          Starting from {service.startingPrice}
+          {t("services.startingFrom")} {service.startingPrice}
         </ThemedText>
       </View>
       <Feather name="chevron-right" size={20} color={theme.textSecondary} />
@@ -73,6 +75,7 @@ export default function ServicesScreen() {
   const headerHeight = useHeaderHeight();
   const tabBarHeight = useBottomTabBarHeight();
   const { theme } = useTheme();
+  const { t } = useLanguage();
   const navigation = useNavigation<NavigationProp>();
 
   const { data: services = [], isLoading } = useQuery<Service[]>({
@@ -121,7 +124,7 @@ export default function ServicesScreen() {
       >
         <Feather name="dollar-sign" size={18} color={Colors.primary} />
         <ThemedText type="small" style={{ color: Colors.primary, fontWeight: "600" }}>
-          Calculator
+          {t("services.calculator", "Calculator")}
         </ThemedText>
       </Pressable>
       <Pressable
@@ -130,7 +133,7 @@ export default function ServicesScreen() {
       >
         <Feather name="activity" size={18} color={Colors.primary} />
         <ThemedText type="small" style={{ color: Colors.primary, fontWeight: "600" }}>
-          Track Project
+          {t("services.trackProject", "Track Project")}
         </ThemedText>
       </Pressable>
       <Pressable
@@ -139,7 +142,7 @@ export default function ServicesScreen() {
       >
         <Feather name="file-text" size={18} color={Colors.primary} />
         <ThemedText type="small" style={{ color: Colors.primary, fontWeight: "600" }}>
-          Contract
+          {t("services.contract", "Contract")}
         </ThemedText>
       </Pressable>
     </View>
