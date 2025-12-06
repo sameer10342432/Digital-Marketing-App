@@ -9,6 +9,12 @@ import {
   type InsertInquiry,
   type Testimonial,
   type InsertTestimonial,
+  type ClientProject,
+  type InsertClientProject,
+  type Client,
+  type InsertClient,
+  type Contract,
+  type InsertContract,
 } from "@shared/schema";
 import { randomUUID } from "crypto";
 
@@ -40,6 +46,27 @@ export interface IStorage {
   createTestimonial(testimonial: InsertTestimonial): Promise<Testimonial>;
   updateTestimonial(id: string, testimonial: Partial<InsertTestimonial>): Promise<Testimonial | undefined>;
   deleteTestimonial(id: string): Promise<boolean>;
+
+  getClientProjects(): Promise<ClientProject[]>;
+  getClientProjectsByEmail(email: string): Promise<ClientProject[]>;
+  getClientProject(id: string): Promise<ClientProject | undefined>;
+  createClientProject(project: InsertClientProject): Promise<ClientProject>;
+  updateClientProject(id: string, project: Partial<ClientProject>): Promise<ClientProject | undefined>;
+  deleteClientProject(id: string): Promise<boolean>;
+
+  getClients(): Promise<Client[]>;
+  getClient(id: string): Promise<Client | undefined>;
+  getClientByEmail(email: string): Promise<Client | undefined>;
+  createClient(client: InsertClient): Promise<Client>;
+  updateClient(id: string, client: Partial<Client>): Promise<Client | undefined>;
+  deleteClient(id: string): Promise<boolean>;
+
+  getContracts(): Promise<Contract[]>;
+  getContractsByClientId(clientId: string): Promise<Contract[]>;
+  getContract(id: string): Promise<Contract | undefined>;
+  createContract(contract: InsertContract): Promise<Contract>;
+  updateContract(id: string, contract: Partial<Contract>): Promise<Contract | undefined>;
+  deleteContract(id: string): Promise<boolean>;
 }
 
 export class MemStorage implements IStorage {
@@ -48,6 +75,9 @@ export class MemStorage implements IStorage {
   private portfolioProjects: Map<string, PortfolioProject>;
   private inquiries: Map<string, Inquiry>;
   private testimonials: Map<string, Testimonial>;
+  private clientProjects: Map<string, ClientProject>;
+  private clients: Map<string, Client>;
+  private contracts: Map<string, Contract>;
 
   constructor() {
     this.admins = new Map();
@@ -55,6 +85,9 @@ export class MemStorage implements IStorage {
     this.portfolioProjects = new Map();
     this.inquiries = new Map();
     this.testimonials = new Map();
+    this.clientProjects = new Map();
+    this.clients = new Map();
+    this.contracts = new Map();
     this.seedData();
   }
 
@@ -163,6 +196,8 @@ export class MemStorage implements IStorage {
       this.services.set(id, {
         ...service,
         id,
+        isActive: service.isActive ?? true,
+        sortOrder: service.sortOrder ?? 0,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -230,6 +265,10 @@ export class MemStorage implements IStorage {
       this.portfolioProjects.set(id, {
         ...project,
         id,
+        imageUrl: project.imageUrl ?? null,
+        projectUrl: project.projectUrl ?? null,
+        deliverables: project.deliverables ?? null,
+        isActive: project.isActive ?? true,
         createdAt: new Date(),
         updatedAt: new Date(),
       });
@@ -271,6 +310,9 @@ export class MemStorage implements IStorage {
       this.testimonials.set(id, {
         ...testimonial,
         id,
+        company: testimonial.company ?? null,
+        avatarUrl: testimonial.avatarUrl ?? null,
+        isActive: testimonial.isActive ?? true,
         createdAt: new Date(),
       });
     });
@@ -306,6 +348,8 @@ export class MemStorage implements IStorage {
     const service: Service = {
       ...insertService,
       id,
+      isActive: insertService.isActive ?? true,
+      sortOrder: insertService.sortOrder ?? 0,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -338,6 +382,10 @@ export class MemStorage implements IStorage {
     const project: PortfolioProject = {
       ...insertProject,
       id,
+      imageUrl: insertProject.imageUrl ?? null,
+      projectUrl: insertProject.projectUrl ?? null,
+      deliverables: insertProject.deliverables ?? null,
+      isActive: insertProject.isActive ?? true,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
@@ -372,6 +420,8 @@ export class MemStorage implements IStorage {
     const inquiry: Inquiry = {
       ...insertInquiry,
       id,
+      phone: insertInquiry.phone ?? null,
+      attachmentUrl: insertInquiry.attachmentUrl ?? null,
       status: "pending",
       adminNotes: null,
       createdAt: new Date(),
@@ -406,6 +456,9 @@ export class MemStorage implements IStorage {
     const testimonial: Testimonial = {
       ...insertTestimonial,
       id,
+      company: insertTestimonial.company ?? null,
+      avatarUrl: insertTestimonial.avatarUrl ?? null,
+      isActive: insertTestimonial.isActive ?? true,
       createdAt: new Date(),
     };
     this.testimonials.set(id, testimonial);
@@ -422,6 +475,139 @@ export class MemStorage implements IStorage {
 
   async deleteTestimonial(id: string): Promise<boolean> {
     return this.testimonials.delete(id);
+  }
+
+  async getClientProjects(): Promise<ClientProject[]> {
+    return Array.from(this.clientProjects.values())
+      .filter((p) => p.isVisibleToClient)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getClientProjectsByEmail(email: string): Promise<ClientProject[]> {
+    return Array.from(this.clientProjects.values())
+      .filter((p) => p.clientEmail === email && p.isVisibleToClient)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getClientProject(id: string): Promise<ClientProject | undefined> {
+    return this.clientProjects.get(id);
+  }
+
+  async createClientProject(insertProject: InsertClientProject): Promise<ClientProject> {
+    const id = randomUUID();
+    const project: ClientProject = {
+      ...insertProject,
+      id,
+      stage: insertProject.stage ?? "requirements_collected",
+      progressPercent: insertProject.progressPercent ?? 0,
+      milestones: insertProject.milestones ?? null,
+      completedMilestones: insertProject.completedMilestones ?? null,
+      uploadedFiles: insertProject.uploadedFiles ?? null,
+      deadline: insertProject.deadline ?? null,
+      adminComments: insertProject.adminComments ?? null,
+      isVisibleToClient: insertProject.isVisibleToClient ?? true,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.clientProjects.set(id, project);
+    return project;
+  }
+
+  async updateClientProject(id: string, updates: Partial<ClientProject>): Promise<ClientProject | undefined> {
+    const project = this.clientProjects.get(id);
+    if (!project) return undefined;
+    const updated = { ...project, ...updates, updatedAt: new Date() };
+    this.clientProjects.set(id, updated);
+    return updated;
+  }
+
+  async deleteClientProject(id: string): Promise<boolean> {
+    return this.clientProjects.delete(id);
+  }
+
+  async getClients(): Promise<Client[]> {
+    return Array.from(this.clients.values())
+      .filter((c) => c.isActive)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getClient(id: string): Promise<Client | undefined> {
+    return this.clients.get(id);
+  }
+
+  async getClientByEmail(email: string): Promise<Client | undefined> {
+    return Array.from(this.clients.values()).find((c) => c.email === email);
+  }
+
+  async createClient(insertClient: InsertClient): Promise<Client> {
+    const id = randomUUID();
+    const client: Client = {
+      ...insertClient,
+      id,
+      phone: insertClient.phone ?? null,
+      company: insertClient.company ?? null,
+      isActive: insertClient.isActive ?? true,
+      loyaltyPoints: 0,
+      loyaltyTier: "bronze",
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.clients.set(id, client);
+    return client;
+  }
+
+  async updateClient(id: string, updates: Partial<Client>): Promise<Client | undefined> {
+    const client = this.clients.get(id);
+    if (!client) return undefined;
+    const updated = { ...client, ...updates, updatedAt: new Date() };
+    this.clients.set(id, updated);
+    return updated;
+  }
+
+  async deleteClient(id: string): Promise<boolean> {
+    return this.clients.delete(id);
+  }
+
+  async getContracts(): Promise<Contract[]> {
+    return Array.from(this.contracts.values())
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getContractsByClientId(clientId: string): Promise<Contract[]> {
+    return Array.from(this.contracts.values())
+      .filter((c) => c.clientId === clientId)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }
+
+  async getContract(id: string): Promise<Contract | undefined> {
+    return this.contracts.get(id);
+  }
+
+  async createContract(insertContract: InsertContract): Promise<Contract> {
+    const id = randomUUID();
+    const contract: Contract = {
+      ...insertContract,
+      id,
+      projectId: insertContract.projectId ?? null,
+      status: "draft",
+      signedAt: null,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    };
+    this.contracts.set(id, contract);
+    return contract;
+  }
+
+  async updateContract(id: string, updates: Partial<Contract>): Promise<Contract | undefined> {
+    const contract = this.contracts.get(id);
+    if (!contract) return undefined;
+    const updated = { ...contract, ...updates, updatedAt: new Date() };
+    this.contracts.set(id, updated);
+    return updated;
+  }
+
+  async deleteContract(id: string): Promise<boolean> {
+    return this.contracts.delete(id);
   }
 }
 

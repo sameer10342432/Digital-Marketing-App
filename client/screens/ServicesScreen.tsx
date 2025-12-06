@@ -83,6 +83,28 @@ export default function ServicesScreen() {
     navigation.navigate("ServiceDetail", { id });
   };
 
+  const navigateToPricingCalculator = () => {
+    navigation.navigate("PricingCalculator");
+  };
+
+  const navigateToProjectTracker = () => {
+    navigation.navigate("ProjectTracker");
+  };
+
+  const navigateToContractGenerator = () => {
+    navigation.navigate("ContractGenerator");
+  };
+
+  React.useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => (
+        <Pressable onPress={navigateToPricingCalculator} hitSlop={8}>
+          <Feather name="dollar-sign" size={22} color={theme.text} />
+        </Pressable>
+      ),
+    });
+  }, [navigation, theme]);
+
   if (isLoading) {
     return (
       <View style={[styles.loadingContainer, { backgroundColor: theme.backgroundRoot }]}>
@@ -90,6 +112,38 @@ export default function ServicesScreen() {
       </View>
     );
   }
+
+  const QuickActionsHeader = () => (
+    <View style={styles.quickActionsContainer}>
+      <Pressable
+        style={[styles.quickActionButton, { backgroundColor: Colors.primary + "15" }]}
+        onPress={navigateToPricingCalculator}
+      >
+        <Feather name="dollar-sign" size={18} color={Colors.primary} />
+        <ThemedText type="small" style={{ color: Colors.primary, fontWeight: "600" }}>
+          Calculator
+        </ThemedText>
+      </Pressable>
+      <Pressable
+        style={[styles.quickActionButton, { backgroundColor: Colors.primary + "15" }]}
+        onPress={navigateToProjectTracker}
+      >
+        <Feather name="activity" size={18} color={Colors.primary} />
+        <ThemedText type="small" style={{ color: Colors.primary, fontWeight: "600" }}>
+          Track Project
+        </ThemedText>
+      </Pressable>
+      <Pressable
+        style={[styles.quickActionButton, { backgroundColor: Colors.primary + "15" }]}
+        onPress={navigateToContractGenerator}
+      >
+        <Feather name="file-text" size={18} color={Colors.primary} />
+        <ThemedText type="small" style={{ color: Colors.primary, fontWeight: "600" }}>
+          Contract
+        </ThemedText>
+      </Pressable>
+    </View>
+  );
 
   return (
     <FlatList
@@ -102,6 +156,7 @@ export default function ServicesScreen() {
       scrollIndicatorInsets={{ bottom: insets.bottom }}
       data={services}
       keyExtractor={(item) => item.id}
+      ListHeaderComponent={QuickActionsHeader}
       renderItem={({ item }) => (
         <ServiceListItem service={item} onPress={() => navigateToDetail(item.id)} />
       )}
@@ -119,6 +174,20 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  quickActionsContainer: {
+    flexDirection: "row",
+    gap: Spacing.sm,
+    marginBottom: Spacing.lg,
+  },
+  quickActionButton: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: Spacing.sm,
+    borderRadius: BorderRadius.md,
+    gap: Spacing.xs,
   },
   serviceItem: {
     flexDirection: "row",

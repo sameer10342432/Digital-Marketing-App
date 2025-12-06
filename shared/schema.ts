@@ -5,6 +5,15 @@ import { z } from "zod";
 
 export const inquiryStatusEnum = pgEnum("inquiry_status", ["pending", "in_progress", "completed"]);
 
+export const projectStageEnum = pgEnum("project_stage", [
+  "requirements_collected",
+  "planning",
+  "design",
+  "development",
+  "review",
+  "completed"
+]);
+
 export const admins = pgTable("admins", {
   id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
   email: text("email").notNull().unique(),
@@ -65,6 +74,55 @@ export const testimonials = pgTable("testimonials", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
 
+export const clientProjects = pgTable("client_projects", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  title: text("title").notNull(),
+  description: text("description").notNull(),
+  clientEmail: text("client_email").notNull(),
+  clientName: text("client_name").notNull(),
+  stage: projectStageEnum("stage").default("requirements_collected").notNull(),
+  progressPercent: integer("progress_percent").default(0).notNull(),
+  milestones: text("milestones").array(),
+  completedMilestones: text("completed_milestones").array(),
+  uploadedFiles: text("uploaded_files").array(),
+  deadline: timestamp("deadline"),
+  adminComments: text("admin_comments"),
+  isVisibleToClient: boolean("is_visible_to_client").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const clients = pgTable("clients", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  email: text("email").notNull().unique(),
+  password: text("password").notNull(),
+  fullName: text("full_name").notNull(),
+  phone: text("phone"),
+  company: text("company"),
+  loyaltyPoints: integer("loyalty_points").default(0).notNull(),
+  loyaltyTier: text("loyalty_tier").default("bronze").notNull(),
+  isActive: boolean("is_active").default(true).notNull(),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const contracts = pgTable("contracts", {
+  id: varchar("id").primaryKey().default(sql`gen_random_uuid()`),
+  clientId: varchar("client_id").notNull(),
+  projectId: varchar("project_id"),
+  clientName: text("client_name").notNull(),
+  serviceSelected: text("service_selected").notNull(),
+  projectScope: text("project_scope").notNull(),
+  deliverables: text("deliverables").array().notNull(),
+  timeline: text("timeline").notNull(),
+  totalAmount: text("total_amount").notNull(),
+  termsAndConditions: text("terms_and_conditions").notNull(),
+  status: text("status").default("draft").notNull(),
+  signedAt: timestamp("signed_at"),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export const insertAdminSchema = createInsertSchema(admins).pick({
   email: true,
   password: true,
@@ -95,6 +153,28 @@ export const insertTestimonialSchema = createInsertSchema(testimonials).omit({
   createdAt: true,
 });
 
+export const insertClientProjectSchema = createInsertSchema(clientProjects).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertClientSchema = createInsertSchema(clients).omit({
+  id: true,
+  loyaltyPoints: true,
+  loyaltyTier: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertContractSchema = createInsertSchema(contracts).omit({
+  id: true,
+  status: true,
+  signedAt: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export type Admin = typeof admins.$inferSelect;
 export type InsertAdmin = z.infer<typeof insertAdminSchema>;
 export type Service = typeof services.$inferSelect;
@@ -105,3 +185,9 @@ export type Inquiry = typeof inquiries.$inferSelect;
 export type InsertInquiry = z.infer<typeof insertInquirySchema>;
 export type Testimonial = typeof testimonials.$inferSelect;
 export type InsertTestimonial = z.infer<typeof insertTestimonialSchema>;
+export type ClientProject = typeof clientProjects.$inferSelect;
+export type InsertClientProject = z.infer<typeof insertClientProjectSchema>;
+export type Client = typeof clients.$inferSelect;
+export type InsertClient = z.infer<typeof insertClientSchema>;
+export type Contract = typeof contracts.$inferSelect;
+export type InsertContract = z.infer<typeof insertContractSchema>;

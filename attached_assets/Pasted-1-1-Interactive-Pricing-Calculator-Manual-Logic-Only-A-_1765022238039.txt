@@ -1,0 +1,328 @@
+1.1 Interactive Pricing Calculator (Manual Logic Only)
+
+A simple pricing estimator based on fixed logic — no AI involvement.
+
+Inputs:
+
+Service type
+
+Work complexity
+
+Delivery speed
+
+Add-on features
+
+Outputs:
+
+Estimated price range
+
+List of included deliverables
+
+Button: “Proceed to Inquiry”
+
+1.2 Project Tracker for Clients (Manual Updates Only)
+
+A client portal where users can track their project status.
+
+Client View Includes:
+
+Project title
+
+Description
+
+Work progress bar
+
+Uploaded files
+
+Milestones
+
+Deadlines
+
+Admin comments
+
+Stages:
+
+Requirements Collected
+
+Planning
+
+Design
+
+Development
+
+Review
+
+Completed
+
+1.3 Digital Contract Generator (Template-Based)
+
+A PDF contract auto-created using fixed templates.
+
+Contract Contents:
+
+Client name
+
+Service selected
+
+Project scope
+
+Deliverables
+
+Timeline
+
+Terms & conditions
+
+User can download or receive via email.
+
+1.4 Advanced Case Study Section
+
+A more detailed case-study format.
+
+New Additions:
+
+Before/after visuals
+
+Timeline of work
+
+Problem/solution structure
+
+Measurable improvements
+
+Screenshots of actual results
+
+1.5 Customer Loyalty Program
+
+A simple points system.
+
+Features:
+
+Points earned for each completed project
+
+Redeemable discounts
+
+Tier levels (Bronze / Silver / Gold / Platinum)
+
+Loyalty history inside user profile
+
+1.6 Offline Browsing Mode
+
+Key content stored offline:
+
+Services
+
+Basic descriptions
+
+Portfolio images (compressed)
+
+About section
+
+2. NEW ADMIN PANEL FEATURES (WITHOUT AI, WITHOUT PAYMENTS)
+2.1 Role-Based Admin Management
+
+New roles:
+
+Super Admin (You)
+
+Team Admin
+
+Viewer
+
+Permissions:
+
+Control who can edit services
+
+Control who can update projects
+
+Control who can manage portfolio
+
+Control who can view inquiries
+
+2.2 Team Collaboration Workspace
+
+Internal admin panel workspace where team can:
+
+Assign inquiries to members
+
+Add internal notes
+
+Upload internal documents
+
+Mark tasks complete
+
+View task deadlines
+
+2.3 Project Lifecycle Manager
+
+Manage every client project from start to finish.
+
+Features:
+
+Add project title & details
+
+Set project milestones
+
+Upload deliverables
+
+Update progress percentage
+
+Make items visible/hidden from client
+
+2.4 Automated Email System (Non-AI, Template-Based)
+
+Templates for:
+
+New inquiry confirmation
+
+Inquiry status updates
+
+Contract shared
+
+Project milestone updates
+
+Project completion message
+
+Admin can edit templates inside panel.
+
+2.5 Analytics Dashboard V2 (Manual Data Tracking)
+
+Includes:
+
+Most requested services
+
+Lead-to-inquiry conversion
+
+Monthly inquiries
+
+Completed projects count
+
+Team performance tracking
+
+Device type analytics
+
+2.6 Asset Library Manager
+
+Central storage for:
+
+Logos
+
+Banners
+
+Templates
+
+Social media packs
+
+Reusable portfolio materials
+
+Admin can apply these in service pages or portfolio.
+
+2.7 Dynamic Landing Page Builder
+
+Admin can create temporary landing pages for:
+
+Discounts
+
+Seasonal offers
+
+Announcements
+
+New service highlights
+
+Features:
+
+Drag-and-drop blocks
+
+Add headings
+
+Add sliders
+
+Add CTAs
+
+Add images
+
+2.8 Client Account System (Non-AI, No Payment Info)
+
+Clients can log in and see:
+
+Their inquiries
+
+Contracts
+
+Uploaded files
+
+Project status
+
+Loyalty points
+
+Notifications
+
+3. BACKEND REQUIREMENTS (UPDATED VERSION)
+3.1 Push Notification Engine
+
+Admin can send:
+
+Promo notices
+
+Project updates
+
+New portfolio alerts
+
+Inquiry reminders
+
+3.2 Email Template Editor
+
+Inside admin panel:
+
+Edit subject lines
+
+Edit body text
+
+Add buttons/links
+
+Insert branding
+
+Preview emails
+
+3.3 Backup + Restore System
+
+Automatic backups:
+
+Daily backups
+
+Downloadable data
+
+One-click restore
+
+Logs of backup history
+
+4. NEW NON-FUNCTIONAL REQUIREMENTS
+4.1 Activity Log (Audit System)
+
+Tracks:
+
+Who updated what
+
+Time of update
+
+Before & after version
+
+4.2 Multi-Device Admin Panel Support
+
+Optimized for:
+
+Phones
+
+Tabs
+
+Desktops
+
+Wide screens
+
+4.3 Version Control Integration
+
+GitHub sync for:
+
+Code updates
+
+Version tagging
+
+Release notes

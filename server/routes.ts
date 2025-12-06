@@ -279,6 +279,194 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
 
+  app.get("/api/client-projects", async (req, res) => {
+    try {
+      const email = req.query.email as string | undefined;
+      let projects;
+      if (email) {
+        projects = await storage.getClientProjectsByEmail(email);
+      } else {
+        projects = await storage.getClientProjects();
+      }
+      res.json(projects);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch client projects" });
+    }
+  });
+
+  app.get("/api/client-projects/:id", async (req, res) => {
+    try {
+      const project = await storage.getClientProject(req.params.id);
+      if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+      res.json(project);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch project" });
+    }
+  });
+
+  app.post("/api/client-projects", async (req, res) => {
+    try {
+      const project = await storage.createClientProject(req.body);
+      res.status(201).json(project);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to create project" });
+    }
+  });
+
+  app.put("/api/client-projects/:id", async (req, res) => {
+    try {
+      const project = await storage.updateClientProject(req.params.id, req.body);
+      if (!project) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+      res.json(project);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update project" });
+    }
+  });
+
+  app.delete("/api/client-projects/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteClientProject(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Project not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete project" });
+    }
+  });
+
+  app.get("/api/clients", async (req, res) => {
+    try {
+      const clients = await storage.getClients();
+      res.json(clients);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch clients" });
+    }
+  });
+
+  app.get("/api/clients/:id", async (req, res) => {
+    try {
+      const client = await storage.getClient(req.params.id);
+      if (!client) {
+        return res.status(404).json({ error: "Client not found" });
+      }
+      res.json(client);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch client" });
+    }
+  });
+
+  app.post("/api/clients", async (req, res) => {
+    try {
+      const client = await storage.createClient(req.body);
+      res.status(201).json(client);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to create client" });
+    }
+  });
+
+  app.put("/api/clients/:id", async (req, res) => {
+    try {
+      const client = await storage.updateClient(req.params.id, req.body);
+      if (!client) {
+        return res.status(404).json({ error: "Client not found" });
+      }
+      res.json(client);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update client" });
+    }
+  });
+
+  app.delete("/api/clients/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteClient(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Client not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete client" });
+    }
+  });
+
+  app.post("/api/clients/login", async (req, res) => {
+    try {
+      const { email, password } = req.body;
+      const client = await storage.getClientByEmail(email);
+      if (!client || client.password !== password) {
+        return res.status(401).json({ error: "Invalid credentials" });
+      }
+      const { password: _, ...clientData } = client;
+      res.json(clientData);
+    } catch (error) {
+      res.status(500).json({ error: "Login failed" });
+    }
+  });
+
+  app.get("/api/contracts", async (req, res) => {
+    try {
+      const clientId = req.query.clientId as string | undefined;
+      let contracts;
+      if (clientId) {
+        contracts = await storage.getContractsByClientId(clientId);
+      } else {
+        contracts = await storage.getContracts();
+      }
+      res.json(contracts);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch contracts" });
+    }
+  });
+
+  app.get("/api/contracts/:id", async (req, res) => {
+    try {
+      const contract = await storage.getContract(req.params.id);
+      if (!contract) {
+        return res.status(404).json({ error: "Contract not found" });
+      }
+      res.json(contract);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to fetch contract" });
+    }
+  });
+
+  app.post("/api/contracts", async (req, res) => {
+    try {
+      const contract = await storage.createContract(req.body);
+      res.status(201).json(contract);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to create contract" });
+    }
+  });
+
+  app.put("/api/contracts/:id", async (req, res) => {
+    try {
+      const contract = await storage.updateContract(req.params.id, req.body);
+      if (!contract) {
+        return res.status(404).json({ error: "Contract not found" });
+      }
+      res.json(contract);
+    } catch (error) {
+      res.status(500).json({ error: "Failed to update contract" });
+    }
+  });
+
+  app.delete("/api/contracts/:id", async (req, res) => {
+    try {
+      const deleted = await storage.deleteContract(req.params.id);
+      if (!deleted) {
+        return res.status(404).json({ error: "Contract not found" });
+      }
+      res.status(204).send();
+    } catch (error) {
+      res.status(500).json({ error: "Failed to delete contract" });
+    }
+  });
+
   const httpServer = createServer(app);
   return httpServer;
 }
